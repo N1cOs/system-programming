@@ -42,8 +42,8 @@ else
 fi
 
 if [[ "${RIGHTS[7]}" == "w" ]]; then
-    for usr in $(getent group | nawk -F ":" "\$3 ~! /^$F_GID/ && length(\$4) > 0 {print \$4}" | tr ',' '\n' | uniq); do
-                gid=$($ID_CMD -u $usr 2>/dev/null)
+    for usr in $(getent group | nawk -F ":" "\$3 != $F_GID && length(\$4) > 0 {print \$4}" | tr ',' '\n' | uniq); do
+        gid=$($ID_CMD -u $usr 2>/dev/null)
         if [[ $? -eq 0 && $CANT_WRT[$gid] != $FLAG ]]; then
             CAN_WRT[gid]=$usr
         fi
