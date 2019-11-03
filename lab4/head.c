@@ -5,7 +5,7 @@ uintmax_t parse_units(char *opt, bool count_lines) {
     const char *msg = count_lines ? ERR_LINES : ERR_BYTES;
     
     if (units == 0) {
-        printf("%s\n", msg);
+        fprintf(stderr, "%s\n", msg);
         exit(EXIT_FAILURE);
     }
     if (units == UINTMAX_MAX) {
@@ -26,7 +26,7 @@ int head_file(char *file_name, uintmax_t units, bool count_lines, bool print_hea
     }
 
     if (fd < 0) {
-        printf(ERR_FILE, file_name, strerror(errno));
+        fprintf(stderr, ERR_FILE, file_name, strerror(errno));
         return EXIT_FAILURE;
     }
     if (print_header) {
@@ -46,7 +46,7 @@ int head_bytes(int fd, uintmax_t units, char *file_name) {
     ssize_t n;
     while (units != 0 && (n = read(fd, buff, BUFSIZ)) != 0) {
         if (n < 0) {
-            printf(ERR_FILE, file_name, strerror(errno));
+            fprintf(stderr, ERR_FILE, file_name, strerror(errno));
             return EXIT_FAILURE;
         }
 
@@ -64,7 +64,7 @@ int head_lines(int fd, uintmax_t units, char *file_name) {
     ssize_t n;
     while (units != 0 && (n = read(fd, buff, BUFSIZ)) != 0) {
         if (n < 0) {
-            printf(ERR_FILE, file_name, strerror(errno));
+            fprintf(stderr, ERR_FILE, file_name, strerror(errno));
             return EXIT_FAILURE;
         }
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
                 units = parse_units(optarg, count_lines);
                 break;
             default:
-                printf("%s\n", USAGE_INFO);
+                fprintf(stderr, "%s\n", USAGE_INFO);
                 exit(EXIT_FAILURE);
         }
     }
