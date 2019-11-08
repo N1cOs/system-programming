@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 
     char ** cmd_args = malloc(sizeof(char*) * (argc + 1));
     cmd_args[0] = argv[1];
-    for (size_t i = 2; i < argc; i++) {
+    for (int i = 2; i < argc; i++) {
         cmd_args[i - 1] = argv[i];
     }
     cmd_args[argc] = NULL;
