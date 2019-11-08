@@ -6,3 +6,4 @@
 #include <string.h>
 #include <errno.h>
 
+#define IS_BLANCK(s) s == '\n' || s == '\t' || s == ' '

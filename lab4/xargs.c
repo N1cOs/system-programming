@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
         }
 
         for(ssize_t k = 0; k < n; k++) {
-            if (buff[k] == '\n') {
+            if (IS_BLANCK(buff[k])) {
                 if ((arg_i + 1) == args_len) {
                     args_len *= 2;
                     stdin_args = realloc(stdin_args, sizeof(char*) * args_len);
