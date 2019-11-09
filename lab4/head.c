@@ -90,12 +90,7 @@ int main(int argc, char *argv[]) {
     int opt;
     bool count_lines = true;
     uintmax_t units = DEFAULT_NUMBER;
-    while (1) {
-        opt = getopt_long(argc, argv, short_opts, long_opts, NULL);
-        if (opt == -1) {
-            break;
-        }
-
+    while ((opt = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
         switch (opt) {
             case 'c':
                 count_lines = false;
