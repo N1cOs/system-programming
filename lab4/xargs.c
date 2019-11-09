@@ -48,18 +48,19 @@ int main(int argc, char *argv[]) {
     }
     free(line_buff);
 
-    char ** cmd_args = malloc(sizeof(char*) * (argc + 1));
-    cmd_args[0] = argv[1];
+    size_t cmd_args_len = (argc == 1 ? 3 : argc + 1);
+    char ** cmd_args = malloc(sizeof(char*) * cmd_args_len);
+    cmd_args[0] = (argc == 1 ? DEFAULT_CMD : argv[1]);
     for (int i = 2; i < argc; i++) {
         cmd_args[i - 1] = argv[i];
     }
-    cmd_args[argc] = NULL;
+    cmd_args[cmd_args_len - 1] = NULL;
 
     int status = 0;
     for (size_t i = 0; i < arg_i; i++) {
         pid_t ch_pid = fork();
         if (ch_pid == 0) {
-            cmd_args[argc - 1] = stdin_args[i];
+            cmd_args[cmd_args_len - 2] = stdin_args[i];
             if (execvp(cmd_args[0], cmd_args) == -1) {
                 perror("execvp");
                 return EXIT_FAILURE;
