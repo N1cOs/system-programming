@@ -1,4 +1,3 @@
-#include "lib.h"
 #include "server.h"
 #include <sys/ipc.h>
 #include <sys/shm.h>
@@ -16,19 +15,6 @@ void sig_handler(int sig) {
     running = false;
 
     print_dt_msg(stdout, "All resources successfully released");
-}
-
-void update_info(struct info *info, time_t start_time) {
-    double temp[3] = {0};
-    int n = getloadavg(temp, 3);
-    if (n == -1) {
-        print_dt_msg(stderr, "Can't get info about average load");
-    }
-    
-    info->elapsed = time(NULL) - start_time;
-    info->load_1 = temp[0];
-    info->load_5 = temp[1];
-    info->load_15 = temp[2];
 }
 
 int main(int argc, char *argv[]) {
