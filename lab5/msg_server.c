@@ -2,7 +2,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
-static srv_qid;
+static int srv_qid;
 static bool running = true;
 
 void sig_handler(int sig) {
