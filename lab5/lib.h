@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 
-#define PATH_NAME "/tmp/lab5"
+#define PATH_NAME "/etc/passwd"
 #define PROJ_ID 123
 
 #define MMAP_FILE "/tmp/server.mmap"
