@@ -10,6 +10,8 @@
 #define PATH_NAME "/tmp/lab5"
 #define PROJ_ID 123
 
+#define MMAP_FILE "/tmp/server.mmap"
+
 #define SHMAT_FAILED (void*) -1
 
 #define MSG_TYPE 1
