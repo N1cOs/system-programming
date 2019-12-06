@@ -6,14 +6,14 @@ all: head xargs
 head: head.o
 	$(CC) -o $@ head.o
 
-head.o:
+head.o: head.c
 	$(CC) -c -o $@ head.c
 
 .PHONY: xargs
 xargs: xargs.o
 	$(CC) -o $@ xargs.o
 
-xargs.o:
+xargs.o: xargs.c
 	$(CC) -c -o $@ xargs.c
 
 .PHONY: clean
