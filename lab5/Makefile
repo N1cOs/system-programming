@@ -3,8 +3,9 @@ FLAGS=-Wall -Wextra --std=gnu99 -pedantic
 SERVER=server
 CLIENT=client
 THREAD=threads
+PIPE=pipe
 
-all: shm msg th_sem th_sem5 th_mu th_lock sock
+all: shm msg th_sem th_sem5 th_mu th_lock sock pipe
 
 shm: shm_server.o shm_client.o lib_client.o lib_server.o
 	$(CC) -o $(SERVER) shm_server.o lib_server.o
@@ -69,5 +70,11 @@ lock_thread.o: lock_thread.c
 lib_thread.o: lib_thread.c
 	$(CC) $(FLAGS) -c -o $@ $(@:.o=.c)
 
+pipe: pipe.o
+	$(CC) -o $(PIPE) pipe.o
+
+pipe.o: pipe.c
+	$(CC) $(FLAGS) -c -o $@ $(@:.o=.c)
+
 clean:
-	rm -rf *.o $(SERVER) $(CLIENT) $(THREAD)
+	rm -rf *.o $(SERVER) $(CLIENT) $(THREAD) $(PIPE)
