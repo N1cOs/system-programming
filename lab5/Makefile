@@ -4,7 +4,7 @@ SERVER=server
 CLIENT=client
 THREAD=threads
 
-all: shm msg th_sem th_sem5
+all: shm msg th_sem th_sem5 th_mu th_lock
 
 shm: shm_server.o shm_client.o lib_client.o lib_server.o
 	$(CC) -o $(SERVER) shm_server.o lib_server.o
@@ -42,6 +42,18 @@ th_sem5: sem5_thread.o lib_thread.o
 	$(CC) -pthread -o $(THREAD) sem5_thread.o lib_thread.o
 
 sem5_thread.o: sem5_thread.c
+	$(CC) $(FLAGS) -c -o $@ $(@:.o=.c)
+
+th_mu: mu_thread.o lib_thread.o
+	$(CC) -pthread -o $(THREAD) mu_thread.o lib_thread.o
+
+mu_thread.o: mu_thread.c
+	$(CC) $(FLAGS) -c -o $@ $(@:.o=.c)
+
+th_lock: lock_thread.o lib_thread.o
+	$(CC) -pthread -o $(THREAD) lock_thread.o lib_thread.o
+
+lock_thread.o: lock_thread.c
 	$(CC) $(FLAGS) -c -o $@ $(@:.o=.c)
 
 lib_thread.o: lib_thread.c
