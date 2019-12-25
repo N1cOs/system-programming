@@ -35,7 +35,8 @@ int main(int argc, char *argv[]) {
     }
     
     if (hostent == NULL) {
-        host.s_addr = INADDR_LOOPBACK;
+        hostent = gethostbyname(DEFAULT_HOST);
+        host = *((struct in_addr*) hostent->h_addr_list[0]);
     }
     if (base == NULL) {
         fprintf(stderr, "%s: %s\n", argv[0], "specify the base directory");
@@ -110,8 +111,9 @@ int main(int argc, char *argv[]) {
     } else if (resp->status == STATUS_BAD) {
         printf("%s\n",(char*) resp->body);
     }
-
-    
+    free(respbuf);
+    free(resp->body);
+    free(resp);
 
     return EXIT_SUCCESS;
 }
